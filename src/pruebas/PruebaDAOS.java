@@ -2,6 +2,7 @@ package pruebas;
 
 
 
+import interfacesDAO.AdministradorDAO;
 import interfacesDAO.DificultadDAO;
 import interfacesDAO.PerfilDAO;
 import interfacesDAO.UsuarioDAO;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import misClases.Administrador;
 import misClases.Dificultad;
 import misClases.Perfil;
 import misClases.Usuario;
@@ -63,7 +65,11 @@ public class PruebaDAOS extends HttpServlet {
 		Usuario usuario =  (Usuario) usuarioDAO.recuperarNombreUsuario("Ignacio");
 		usuario.setApellido("Bacca");
 		usuarioDAO.actualizar(usuario);
-	
+		
+		AdministradorDAO administradorDAO = DAOFactory.getAdministradorDAO();
+		Administrador admin = (Administrador) administradorDAO.recuperarNombreUsuario("Alex");
+		admin.setNombre("Alexis");
+		administradorDAO.actualizar(admin);
 	}
 		
 		

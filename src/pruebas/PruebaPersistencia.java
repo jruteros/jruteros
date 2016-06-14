@@ -108,6 +108,7 @@ public class PruebaPersistencia extends HttpServlet {
 		
 		Coordenada coordenada = new Coordenada();
 		
+		
 		Dificultad facil = new Dificultad();
 		facil.setNombre("facil");
 		
