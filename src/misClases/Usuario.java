@@ -21,6 +21,8 @@ public class Usuario extends Perfil{
 	public Usuario(String nombre, String apellido, String nombreUsuario, String email
 			, String clave, Integer dni, String domicilio, Sexo sexo) {
 		super(nombre, apellido, nombreUsuario, email, clave, dni, domicilio, sexo);
+		this.misRutas = new ArrayList<Ruta>();
+		this.misPuntajes = new ArrayList<Puntaje>();
 	}
 
 	public Collection<Ruta> getMisRutas() {
