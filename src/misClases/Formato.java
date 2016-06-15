@@ -12,6 +12,12 @@ public class Formato {
 	
 	private String nombre;
 	
+	public Formato() {}
+	
+	public Formato(String nombre) {
+		this.setNombre(nombre);
+	}
+
 	public Long getId_formato() {
 		return id_formato;
 	}

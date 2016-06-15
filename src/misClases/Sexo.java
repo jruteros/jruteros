@@ -12,6 +12,12 @@ public class Sexo {
 
 	private String genero;
 	
+	public Sexo() {}
+	
+	public Sexo(String genero) {
+		this.setGenero(genero);
+	}
+
 	public Long getId_sexo() {
 		return id_sexo;
 	}

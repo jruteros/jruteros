@@ -15,6 +15,13 @@ public class Usuario extends Perfil{
 
 	@OneToMany(mappedBy="usuario")
 	private Collection<Puntaje> misPuntajes;
+	
+	public Usuario() { super();	}
+	
+	public Usuario(String nombre, String apellido, String nombreUsuario, String email
+			, String clave, Integer dni, String domicilio, Sexo sexo) {
+		super(nombre, apellido, nombreUsuario, email, clave, dni, domicilio, sexo);
+	}
 
 	public Collection<Ruta> getMisRutas() {
 		return misRutas;
@@ -34,6 +41,14 @@ public class Usuario extends Perfil{
 
 	public void agregarPuntaje(Puntaje puntaje) {
 		this.misPuntajes.add(puntaje);
+	}
+	
+	public void puntuarRuta(Ruta ruta, Integer puntos) {
+		Puntaje puntaje = new Puntaje();
+		puntaje.setPuntuacion(puntos);
+		puntaje.setRuta(ruta);
+		puntaje.setUsuario(this);
+		this.agregarPuntaje(puntaje);
 	}
 	
 	public void agregarRutaSubida(Ruta ruta) {

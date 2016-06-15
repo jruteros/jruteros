@@ -7,10 +7,17 @@ import javax.persistence.Id;
 @Entity
 
 public class Privacidad {
+	
 	@Id @GeneratedValue
 	private Long id_privacidad;
 	
 	private String nombre;
+	
+	public Privacidad() {}
+	
+	public Privacidad(String nombre) {
+		this.setNombre(nombre);
+	}
 	
 	public Long getId_privacidad() {
 		return id_privacidad;

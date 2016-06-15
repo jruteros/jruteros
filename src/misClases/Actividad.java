@@ -12,6 +12,12 @@ public class Actividad {
 	
 	private String nombre;
 	
+	public Actividad() {}
+	
+	public Actividad(String nombre) {
+		this.setNombre(nombre);
+	}
+	
 	public Long getId_actividad() {
 		return id_actividad;
 	}

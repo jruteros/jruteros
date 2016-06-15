@@ -12,6 +12,12 @@ public class Dificultad {
 	
 	private String nombre;
 	
+	public Dificultad() {}
+	
+	public Dificultad(String nombre) {
+		this.setNombre(nombre);
+	}
+	
 	public Long getId_dificultad() {
 		return id_dificultad;
 	}

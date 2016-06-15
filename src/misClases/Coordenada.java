@@ -20,6 +20,14 @@ public class Coordenada {
 	@JoinColumn(name="id_ruta")
 	private Ruta ruta;
 	
+	public Coordenada() {}
+	
+	public Coordenada(Float latitud, Float longitud, Ruta ruta) {
+		this.setLatitud(latitud);
+		this.setLongitud(longitud);
+		this.setRuta(ruta);
+	}
+	
 	public Long getId_coordenada() {
 		return id_coordenada;
 	}

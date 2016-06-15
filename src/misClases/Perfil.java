@@ -33,6 +33,20 @@ public class Perfil {
 	
 	private String domicilio;
 	
+	public Perfil(){}
+	
+	public Perfil(String nombre, String apellido, String nombreUsuario, String email
+			, String clave, Integer dni, String domicilio, Sexo sexo) {
+		this.setNombre(nombre);
+		this.setNombreUsuario(nombreUsuario);
+		this.setApellido(apellido);
+		this.setClave(clave);
+		this.setDni(dni);
+		this.setEmail(email);
+		this.setDomicilio(domicilio);
+		this.setSexo(sexo);
+	}
+	
 	public Long getId_perfil() {
 		return id_perfil;
 	}

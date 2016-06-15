@@ -2,6 +2,7 @@ package misClases;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Entity;
@@ -57,6 +58,25 @@ public class Ruta {
 	@OneToMany(mappedBy="ruta")
 	private Collection<Imagen>imagenes;
 	
+	public Ruta() {	}
+	
+	public Ruta(String nombre, String descripcion, Float distancia, 
+			Time tiempo_estimado, Date fecha_realizacion, Usuario usuario,
+			Formato formato, Actividad actividad, Privacidad privacidad) {
+		this.puntajes = new ArrayList<Puntaje>();
+		this.coordenadas = new ArrayList<Coordenada>();
+		this.imagenes = new ArrayList<Imagen>();
+		this.setNombre(nombre);
+		this.setDescripcion(descripcion);
+		this.setDistancia(distancia);
+		this.setTiempo_estimado(tiempo_estimado);
+		this.setFecha_realizacion(fecha_realizacion);
+		this.setUsuario(usuario);
+		this.setFormato(formato);
+		this.setActividad(actividad);
+		this.setPrivacidad(privacidad);
+	}
+
 	public Long getId_ruta() {
 		return id_ruta;
 	}
@@ -167,5 +187,9 @@ public class Ruta {
 	
 	public void setPrivacidad(Privacidad privacidad) {
 		this.privacidad = privacidad;
+	}
+	
+	public void agregarCoordenada(Float latitud, Float longitud) {
+		this.getCoordenadas().add(new Coordenada(latitud, longitud, this));
 	}
 }
