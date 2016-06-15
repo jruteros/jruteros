@@ -5,6 +5,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -52,7 +53,7 @@ public class Ruta {
 	@OneToMany(mappedBy="ruta")	
 	private Collection<Puntaje> puntajes;
 	
-	@OneToMany(mappedBy="ruta")
+	@OneToMany(cascade= CascadeType.ALL, mappedBy="ruta")
 	private Collection<Coordenada>coordenadas;
 	
 	@OneToMany(mappedBy="ruta")
@@ -62,7 +63,7 @@ public class Ruta {
 	
 	public Ruta(String nombre, String descripcion, Float distancia, 
 			Time tiempo_estimado, Date fecha_realizacion, Usuario usuario,
-			Formato formato, Actividad actividad, Privacidad privacidad) {
+			Formato formato, Actividad actividad, Dificultad dificultad, Privacidad privacidad) {
 		this.puntajes = new ArrayList<Puntaje>();
 		this.coordenadas = new ArrayList<Coordenada>();
 		this.imagenes = new ArrayList<Imagen>();
@@ -75,6 +76,7 @@ public class Ruta {
 		this.setFormato(formato);
 		this.setActividad(actividad);
 		this.setPrivacidad(privacidad);
+		this.setDificultad(dificultad);
 	}
 
 	public Long getId_ruta() {

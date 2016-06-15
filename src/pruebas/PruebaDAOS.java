@@ -4,8 +4,11 @@ import interfacesDAO.ActividadDAO;
 import interfacesDAO.AdministradorDAO;
 import interfacesDAO.DificultadDAO;
 import interfacesDAO.FormatoDAO;
+import interfacesDAO.ImagenDAO;
 import interfacesDAO.PerfilDAO;
 import interfacesDAO.PrivacidadDAO;
+import interfacesDAO.PuntajeDAO;
+import interfacesDAO.RutaDAO;
 import interfacesDAO.SexoDAO;
 import interfacesDAO.UsuarioDAO;
 
@@ -25,6 +28,7 @@ import misClases.Administrador;
 import misClases.Coordenada;
 import misClases.Dificultad;
 import misClases.Formato;
+import misClases.Imagen;
 import misClases.Perfil;
 import misClases.Privacidad;
 import misClases.Puntaje;
@@ -161,19 +165,18 @@ public class PruebaDAOS extends HttpServlet {
 		Administrador admin = new Administrador("Admin", "Admin", "admin", "admin@admin", "admin", 5555555, "algun lugar", hombre);
 		Administrador admin2 = new Administrador("Admin2", "Admin2", "admin2", "admin2@admin2", "admin2pass", 666666, "otro lugar", mujer);
 
+		usuarioDAO.persistir(nacho);
+		usuarioDAO.persistir(alex);
 		
-		@SuppressWarnings("deprecation")
-		Time timeruta1 = new Time(3,12,02);
-		@SuppressWarnings("deprecation")
-		Time timeruta2 = new Time(1,45,12);
-
-		@SuppressWarnings("deprecation")
-		Date dateruta1 = new Date(2015, 04, 06);
-		@SuppressWarnings("deprecation")
-		Date dateruta2 = new Date(2015, 05, 26);
+		Time timeruta1 = Time.valueOf("3:20:20");
+		Time timeruta2 = Time.valueOf("0:40:20");
+		
+		Date dateruta1 = Date.valueOf("2016-02-20");
+		Date dateruta2 = Date.valueOf("2016-02-20");
+		
 
 		Ruta ruta1 = new Ruta("Montañas blancas", "Paseo por las montañas nevadas de Mendoza", (float) 34.08, 
-				timeruta1, dateruta1, nacho, soloIda, carreraMontaña, publica);
+				timeruta1, dateruta1, nacho, soloIda, carreraMontaña, dificil, publica);
 		ruta1.agregarCoordenada((float) 34.01, (float) 33.05);
 		ruta1.agregarCoordenada((float) 34.02, (float) 33.05);
 		ruta1.agregarCoordenada((float) 34.03, (float) 33.05);
@@ -183,7 +186,7 @@ public class PruebaDAOS extends HttpServlet {
 		ruta1.agregarCoordenada((float) 34.07, (float) 33.04);
 		ruta1.agregarCoordenada((float) 34.08, (float) 33.04);
 		Ruta ruta2 = new Ruta("A caballo por la playa", "A caballo por la playa", (float) 34.08, 
-				timeruta1, dateruta1, nacho, circular, aCaballo, publica);
+				timeruta2, dateruta2, nacho, circular, aCaballo, facil, publica);
 		ruta2.agregarCoordenada((float) -34.01, (float) 33.00);
 		ruta2.agregarCoordenada((float) -34.11, (float) 33.01);
 		ruta2.agregarCoordenada((float) -34.21, (float) 33.02);
@@ -196,37 +199,69 @@ public class PruebaDAOS extends HttpServlet {
 		ruta2.agregarCoordenada((float) -34.11, (float) 33.01);
 		ruta2.agregarCoordenada((float) -34.01, (float) 33.00);
 		
-		nacho.agregarRutaSubida(ruta1);
-		nacho.agregarRutaSubida(ruta2);
+		RutaDAO rutaDAO = DAOFactory.getRutaDAO();
+		rutaDAO.persistir(ruta1);
+		rutaDAO.persistir(ruta2);
 
-		alex.puntuarRuta(ruta1, 10);
-		usuarioDAO.persistir(nacho);
-		usuarioDAO.persistir(alex);
+		Imagen imagen = new Imagen("montaña", "Montaña linda", (float) 800, (float) 600, "/rut/aaaa");
+		imagen.setRuta(ruta1);
+		ImagenDAO imagenDAO = DAOFactory.getImagenDAO();
+		imagenDAO.persistir(imagen);
+		
+
+		Puntaje puntaje1 = new Puntaje(ruta1, alex, 10);
+		Puntaje puntaje2 = new Puntaje(ruta2, alex, 10);
+		PuntajeDAO puntajeDAO = DAOFactory.getPuntajeDAO();
+		puntajeDAO.persistir(puntaje1);
+		puntajeDAO.persistir(puntaje2);
 		usuarioDAO.persistir(josefina);
 		perfilDAO.persistir(admin);
 		perfilDAO.persistir(admin2);
 
 		
+		System.out.println("Listado de Perfiles (incluye Usuarios y Administradores)...");
 		List<Perfil> listaPerfiles = perfilDAO.recuperarTodos();
 		for(Perfil p:listaPerfiles){
 			System.out.println("perfil " +p.getNombre());
 		}
+		System.out.println();
+		System.out.println("Modifico el nombre del usuario alexrojas");
+		Usuario usuario2 = (Usuario) usuarioDAO.recuperarNombreUsuario("alexrojas");
+		usuario2.setNombre("Alexisssss");
+		usuarioDAO.actualizar(usuario2);
+		System.out.println();
+		usuario2 = (Usuario) usuarioDAO.recuperarNombreUsuario("alexrojas");
 		
+		System.out.println("Eliminó el usuario josefinadetal");
+		josefina = (Usuario) usuarioDAO.recuperarNombreUsuario("josefinadetal");
+		usuarioDAO.borrar(josefina);
+		
+		System.out.println("En el siguiente listado de usuarios se demuestra que se cambio el nombre"
+				+ "del usuario alexrojas.");
+		System.out.println("Tambien se prueba que se elimino el usuario josefinadetal");
+		System.out.println("Listado de Usuarios...");
 		List<Usuario> listaUsuarios = usuarioDAO.recuperarTodos();
 		for(Usuario u:listaUsuarios){
 			System.out.println("usuario "+u.getNombre());
 		}
 		Usuario usuario =  (Usuario) usuarioDAO.recuperarNombreUsuario("ignaciovacca");
-		Usuario usuario2 = (Usuario) usuarioDAO.recuperarNombreUsuario("alexrojas");
+		
+		
+		System.out.println("Listado de rutas del usuario ignaciovacca...");
 		List<Ruta> rutasNacho = (List<Ruta>) usuario.getMisRutas();
 		for (Ruta r: rutasNacho){
 			System.out.println(r.getId_ruta()+" "+r.getNombre());
 		}
+		System.out.println();
 		
+		
+		System.out.println("Listo los puntajes del usuario alexrojas...");
 		List<Puntaje> puntajesAlex = (List<Puntaje>) usuario2.getMisPuntajes();
 		for (Puntaje p: puntajesAlex){
-			System.out.println(p.getId_puntaje()+ " " + p.getRuta().getNombre() + " " + p.getRuta().getUsuario().getNombreUsuario());
+			System.out.println("Id_puntaje: "+ p.getId_puntaje()+ " del usuario" + p.getUsuario().getNombre() + " de la ruta" + p.getRuta().getUsuario().getNombreUsuario());
 		}
+		
+		System.out.println();
 	}
 		
 	/**

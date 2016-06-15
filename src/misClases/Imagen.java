@@ -16,7 +16,7 @@ public class Imagen {
 	
 	private String descripcion;
 	
-	private int anchura;
+	private float anchura;
 	
 	private float altura;
 	
@@ -26,6 +26,18 @@ public class Imagen {
 	
 	private String ruta_relativa;
 	
+	public Imagen() {};
+
+	public Imagen(String nombre, String descripcion, float anchura, float altura, String ruta_relativa) {
+		super();
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.anchura = anchura;
+		this.altura = altura;
+		this.ruta = ruta;
+		this.ruta_relativa = ruta_relativa;
+	}
+
 	public Long getId_imagen() {
 		return id_imagen;
 	}
@@ -50,11 +62,11 @@ public class Imagen {
 		this.descripcion = descripcion;
 	}
 	
-	public int getAnchura() {
+	public float getAnchura() {
 		return anchura;
 	}
 	
-	public void setAnchura(int ancho) {
+	public void setAnchura(float ancho) {
 		this.anchura = ancho;
 	}
 	

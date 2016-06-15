@@ -22,6 +22,14 @@ public class Puntaje {
 	@JoinColumn(name="id_ruta")
 	private Ruta ruta;
 	
+	public Puntaje() {}
+	
+	public Puntaje(Ruta ruta, Usuario usuario, Integer puntos) {
+		this.setRuta(ruta);
+		this.setUsuario(usuario);
+		this.setPuntuacion(puntos);
+	}
+	
 	public Long getId_puntaje() {
 		return id_puntaje;
 	}
