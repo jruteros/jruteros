@@ -1,0 +1,6 @@
+Pasos para la instalación del sistema
+
+1) Descomprimir el archivo.
+2) Crear una base de datos llamada "bdjruteros". El usuario de la bd es "root" y password "root"
+3) Correrlo en un Servidor Tomcat y llamar por Get(/PruebasDAOS) al servlet PruebaDAOS.
+4) Observar los resultados por consola 
